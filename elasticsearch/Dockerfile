@@ -33,6 +33,8 @@ RUN mkdir -p /usr/share/elasticsearch/logs && \
 
 RUN bash -c 'echo "http.host: 0.0.0.0" >> /usr/share/elasticsearch/config/elasticsearch.yml'
 
+RUN bin/elasticsearch-plugin remove x-pack --purge || true
+
 EXPOSE 9200 9300
 
 CMD ["bin/elasticsearch"]
