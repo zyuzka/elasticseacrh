@@ -1,4 +1,4 @@
-name: CI
+name: Kibana-CI
 
 on: push
 

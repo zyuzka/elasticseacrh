@@ -1,4 +1,4 @@
-name: CI
+name: Swagger-CI
 
 on: push
 
