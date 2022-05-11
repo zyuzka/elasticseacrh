@@ -9,14 +9,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - image: 'kibana/Dockerfile'
+          - image: 'kibana/5.6.16.Dockerfile'
             tags: [ "zyuzka/kibana:5.6" ]
-            version: 'v5.6.16'
             platforms: [ 'linux/amd64', 'linux/arm64' ]
 
-          - image: 'kibana/Dockerfile'
+          - image: 'kibana/6.8.4.Dockerfile'
             tags: [ "zyuzka/kibana:6.8" ]
-            version: 'v6.8.4'
             platforms: [ 'linux/amd64', 'linux/arm64' ]
 
     steps:
@@ -39,6 +37,4 @@ jobs:
           push: true
           file: ${{ matrix.image }}
           tags: ${{ join(matrix.tags) }}
-          build-args: |
-            KIBANA_VERSION=${{ matrix.version }}
           platforms: ${{ join(matrix.platforms) }}

@@ -1,7 +1,8 @@
 FROM debian:stable-slim
 
 ARG TARGETPLATFORM
-ARG KIBANA_VERSION=v5.6.16
+ARG KIBANA_VERSION=v6.8.4
+ARG NODE_VERSION=v10.15.2
 
 ENV USERNAME "kibana"
 ENV HOME "/home/${USERNAME}"
@@ -31,7 +32,7 @@ USER ${USERNAME}
 # nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 RUN chmod -R 777 ${NVM_DIR}
-RUN echo 'export NVM_DIR="${NVM_DIR}"'                                       >> "${HOME}/.bashrc"
+RUN echo 'export NVM_DIR="${NVM_DIR}"' >> "${HOME}/.bashrc"
 RUN echo '[ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh"  # This loads nvm' >> "${HOME}/.bashrc"
 RUN echo '[ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion" # This loads nvm bash_completion' >> "${HOME}/.bashrc"
 
@@ -42,12 +43,16 @@ RUN git clone -b ${KIBANA_VERSION} https://github.com/elastic/kibana.git --singl
 WORKDIR /usr/share/kibana
 RUN git config --global url."https://github.com/".insteadOf git://github.com/
 RUN bash -c 'source ${HOME}/.nvm/nvm.sh && nvm install "$(cat .node-version)" \
-    && npm uninstall node-sass \
-    && npm install sass@~1.32.13 sass-loader@~10.2.0 \
-    && npm install'
+    && npm install -g yarn \
+    && yarn remove node-sass \
+    && yarn add sass@~1.32.13 sass-loader@~10.2.0 \
+    && yarn install'
+
+ENV NODE_PATH ${NVM_DIR}/${NODE_VERSION}/lib/node_modules
+ENV PATH /home/kibana/.nvm/versions/node/${NODE_VERSION}/bin:$PATH
 
 EXPOSE 5601
 
 WORKDIR /usr/share/kibana
 
-CMD ["bin/kibana"]
+ENTRYPOINT ["bin/kibana"]
