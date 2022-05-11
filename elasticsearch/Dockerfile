@@ -21,8 +21,7 @@ USER elasticsearch
 
 RUN curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ELASTICSEARCH_VERSION}.tar.gz -o elasticsearch-${ELASTICSEARCH_VERSION}.tar.gz \
     && tar xf ./elasticsearch-${ELASTICSEARCH_VERSION}.tar.gz \
-    && mv elasticsearch-${ELASTICSEARCH_VERSION} elasticsearch \
-    && cd elasticsearch
+    && mv elasticsearch-${ELASTICSEARCH_VERSION} elasticsearch
 
 WORKDIR /usr/share/elasticsearch
 

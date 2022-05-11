@@ -8,8 +8,24 @@ RUN apt update -y \
     bash \
     curl
 
-RUN curl https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-amd64.deb -o kibana-${KIBANA_VERSION}-amd64.deb && \
-    dpkg -i kibana-${KIBANA_VERSION}-amd64.deb
+RUN addgroup kibana && \
+    useradd --shell /bin/sh --groups kibana --gid kibana kibana && \
+    chown kibana:kibana /usr/share
+
+WORKDIR /usr/share
+
+USER kibana
+
+RUN curl https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -o kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
+    && tar xf ./kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz \
+    && mv kibana-${KIBANA_VERSION}-linux-x86_64 kibana
+
+WORKDIR /usr/share/elasticsearch
+
+RUN mkdir -p /usr/share/kibana/data && \
+    chown kibana:kibana /usr/share/kibana/data
+RUN mkdir -p /usr/share/kibana/config && \
+    chown kibana:kibana /usr/share/kibana/config
 
 EXPOSE 5601
 
