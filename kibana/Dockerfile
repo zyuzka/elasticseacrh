@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM node:slim
 
 ARG TARGETPLATFORM
 ARG KIBANA_VERSION=5.6.16
@@ -7,10 +7,6 @@ RUN apt update -y \
     && apt install -y \
     bash \
     curl
-
-RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
-    apt-get install -y nodejs \
-    build-essential
 
 RUN addgroup kibana && \
     useradd --shell /bin/sh --groups kibana --gid kibana kibana && \
