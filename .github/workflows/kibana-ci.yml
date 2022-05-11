@@ -11,12 +11,12 @@ jobs:
         include:
           - image: 'kibana/Dockerfile'
             tags: [ "zyuzka/kibana:5.6" ]
-            version: '5.6.16'
+            version: 'v5.6.16'
             platforms: [ 'linux/amd64', 'linux/arm64' ]
 
           - image: 'kibana/Dockerfile'
             tags: [ "zyuzka/kibana:6.8" ]
-            version: '6.8.4'
+            version: 'v6.8.4'
             platforms: [ 'linux/amd64', 'linux/arm64' ]
 
     steps:
