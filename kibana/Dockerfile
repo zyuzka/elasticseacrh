@@ -8,6 +8,10 @@ RUN apt update -y \
     bash \
     curl
 
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
+    apt-get install -y nodejs \
+    build-essential
+
 RUN addgroup kibana && \
     useradd --shell /bin/sh --groups kibana --gid kibana kibana && \
     chown kibana:kibana /usr/share
