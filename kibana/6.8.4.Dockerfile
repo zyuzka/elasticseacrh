@@ -45,10 +45,10 @@ RUN git config --global url."https://github.com/".insteadOf git://github.com/
 RUN bash -c 'source ${HOME}/.nvm/nvm.sh && nvm install "$(cat .node-version)" \
     && npm install -g yarn \
     && yarn remove node-sass \
-    && yarn add sass@~1.32.13 sass-loader@~10.2.0 \
+    && yarn add sass \
     && yarn install \
-    && yarn kbn bootstrap \
-    && node scripts/build --skip-archives --skip-os-packages --no-oss'
+    && yarn kbn bootstrap'
+RUN bash -c 'node scripts/build --skip-archives --skip-os-packages --no-oss'
 
 RUN mv build/kibana /usr/share/kibana
 RUN rm -rf ${HOME}/kibana
