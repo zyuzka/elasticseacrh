@@ -36,18 +36,22 @@ RUN echo 'export NVM_DIR="${NVM_DIR}"' >> "${HOME}/.bashrc"
 RUN echo '[ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh"  # This loads nvm' >> "${HOME}/.bashrc"
 RUN echo '[ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion" # This loads nvm bash_completion' >> "${HOME}/.bashrc"
 
-WORKDIR /usr/share
+WORKDIR ${HOME}
 
 RUN git clone -b ${KIBANA_VERSION} https://github.com/elastic/kibana.git --single-branch kibana
 
-WORKDIR /usr/share/kibana
+WORKDIR ${HOME}/kibana
 RUN git config --global url."https://github.com/".insteadOf git://github.com/
 RUN bash -c 'source ${HOME}/.nvm/nvm.sh && nvm install "$(cat .node-version)" \
     && npm install -g yarn \
     && yarn remove node-sass \
     && yarn add sass@~1.32.13 sass-loader@~10.2.0 \
     && yarn install \
-    && yarn kbn bootstrap'
+    && yarn kbn bootstrap \
+    && node scripts/build --skip-archives --skip-os-packages --no-oss'
+
+RUN mv build/kibana /usr/share/kibana
+RUN rm -rf ${HOME}/kibana
 
 ENV NODE_PATH ${NVM_DIR}/${NODE_VERSION}/lib/node_modules
 ENV PATH /home/kibana/.nvm/versions/node/${NODE_VERSION}/bin:$PATH
