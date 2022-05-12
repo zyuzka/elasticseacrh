@@ -48,14 +48,15 @@ RUN bash -c 'source ${HOME}/.nvm/nvm.sh && nvm install "$(cat .node-version)" \
     && yarn add sass@~1.32.13 \
     && yarn install \
     && yarn kbn bootstrap'
-RUN bash -c 'node scripts/build --skip-archives --skip-os-packages --no-oss'
-
-RUN mv build/kibana /usr/share/kibana
-RUN rm -rf ${HOME}/kibana
 
 ENV NODE_PATH ${NVM_DIR}/${NODE_VERSION}/lib/node_modules
 ENV PATH /home/kibana/.nvm/versions/node/${NODE_VERSION}/bin:$PATH
 ENV NODE_OPTIONS --max-old-space-size=5000
+
+RUN bash -c 'node scripts/build --skip-archives --skip-os-packages --no-oss'
+
+RUN mv build/kibana /usr/share/kibana
+RUN rm -rf ${HOME}/kibana
 
 EXPOSE 5601
 
