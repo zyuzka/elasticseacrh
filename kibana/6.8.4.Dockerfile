@@ -46,7 +46,8 @@ RUN bash -c 'source ${HOME}/.nvm/nvm.sh && nvm install "$(cat .node-version)" \
     && npm install -g yarn \
     && yarn remove node-sass \
     && yarn add sass@~1.32.13 sass-loader@~10.2.0 \
-    && yarn install'
+    && yarn install \
+    && yarn kbn bootstrap'
 
 ENV NODE_PATH ${NVM_DIR}/${NODE_VERSION}/lib/node_modules
 ENV PATH /home/kibana/.nvm/versions/node/${NODE_VERSION}/bin:$PATH
