@@ -3,8 +3,6 @@ FROM openjdk:8-jdk
 ARG TARGETPLATFORM
 ARG ELASTICSEARCH_VERSION=5.6.16
 
-ENV JAVA_OPTS='-Xms512m -Xmx512m'
-
 RUN apt update -y \
     && apt install -y \
     bash \
@@ -36,4 +34,4 @@ RUN bin/elasticsearch-plugin remove x-pack --purge || true
 
 EXPOSE 9200 9300
 
-CMD ["bin/elasticsearch"]
+CMD ["bin/elasticsearch", "-E", "xpack.ml.enabled=false"]
