@@ -45,7 +45,7 @@ RUN git config --global url."https://github.com/".insteadOf git://github.com/
 RUN bash -c 'source ${HOME}/.nvm/nvm.sh && nvm install "$(cat .node-version)" \
     && npm install -g yarn \
     && yarn remove node-sass \
-    && yarn add sass \
+    && yarn add sass@~1.32.13 \
     && yarn install \
     && yarn kbn bootstrap'
 RUN bash -c 'node scripts/build --skip-archives --skip-os-packages --no-oss'
