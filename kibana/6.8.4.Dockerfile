@@ -51,9 +51,10 @@ RUN bash -c 'source ${HOME}/.nvm/nvm.sh && nvm install "$(cat .node-version)" \
 
 ENV NODE_PATH ${NVM_DIR}/${NODE_VERSION}/lib/node_modules
 ENV PATH /home/kibana/.nvm/versions/node/${NODE_VERSION}/bin:$PATH
+ENV NODE_OPTIONS --max-old-space-size=5000
 
 EXPOSE 5601
 
 WORKDIR /usr/share/kibana
 
-ENTRYPOINT ["bin/kibana"]
+CMD ["bin/kibana"]

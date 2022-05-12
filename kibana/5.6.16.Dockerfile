@@ -54,4 +54,4 @@ EXPOSE 5601
 
 WORKDIR /usr/share/kibana
 
-ENTRYPOINT ["bin/kibana"]
+CMD ["bin/kibana"]
