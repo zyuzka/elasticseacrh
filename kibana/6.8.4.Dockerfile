@@ -54,7 +54,7 @@ ENV NODE_PATH ${NVM_DIR}/${NODE_VERSION}/lib/node_modules
 ENV PATH /home/kibana/.nvm/versions/node/${NODE_VERSION}/bin:$PATH
 ENV NODE_OPTIONS --max-old-space-size=5000
 
-RUN #bash -c 'node scripts/build --skip-archives --skip-os-packages --no-oss'
+#RUN bash -c 'node scripts/build --skip-archives --skip-os-packages --no-oss'
 
 RUN mv build/kibana /usr/share/kibana
 RUN rm -rf ${HOME}/kibana
