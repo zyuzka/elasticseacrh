@@ -1,4 +1,5 @@
-FROM blacktop/kibana:6.8.4
+FROM volhovm/kibana:6.8.10-arm
+#FROM blacktop/kibana:6.8.4
 #FROM debian:stable-slim
 #
 #ARG TARGETPLATFORM
