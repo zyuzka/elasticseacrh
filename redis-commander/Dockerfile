@@ -6,7 +6,7 @@ ARG REDIS_COMMANDER_VERSION='v0.8.0'
 
 WORKDIR /
 
-RUN git clone -b ${REDIS_COMMANDER_VERSION} https://github.com/joeferner/redis-commander.git --single-branch redis-commander
+RUN git clone -b v0.8.0 https://github.com/joeferner/redis-commander.git --single-branch redis-commander
 
 WORKDIR /redis-commander
 
