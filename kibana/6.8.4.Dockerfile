@@ -52,7 +52,7 @@ ENV PATH=/usr/share/kibana/bin:$PATH
 
 # Add the launcher/wrapper script. It knows how to interpret environment
 # variables and translate them to Kibana CLI options.
-COPY --chown=1000:0 bin/kibana-docker /usr/local/bin/
+#COPY --chown=1000:0 bin/kibana-docker /usr/local/bin/
 
 # Ensure gid 0 write permissions for OpenShift.
 RUN chmod g+ws /usr/share/kibana && find /usr/share/kibana -gid 0 -and -not -perm /g+w -exec chmod g+w {} \;
@@ -65,9 +65,9 @@ LABEL org.label-schema.schema-version="1.0" org.label-schema.vendor="Elastic" or
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 
-RUN chmod +x /usr/local/bin/kibana-docker
-CMD ["/usr/local/bin/kibana-docker"]
-#CMD ["/usr/share/kibana/bin/kibana"]
+RUN #chmod +x /usr/local/bin/kibana-docker
+#CMD ["/usr/local/bin/kibana-docker"]
+CMD ["/usr/share/kibana/bin/kibana"]
 
 
 
