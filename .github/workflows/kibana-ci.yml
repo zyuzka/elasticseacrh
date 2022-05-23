@@ -35,6 +35,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          context: kibana
           file: ${{ matrix.image }}
           tags: ${{ join(matrix.tags) }}
           platforms: ${{ join(matrix.platforms) }}
