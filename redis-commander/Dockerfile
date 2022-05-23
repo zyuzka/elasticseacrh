@@ -1,12 +1,16 @@
 FROM alpine:3.15
 
-
 ARG TARGETPLATFORM
 ARG REDIS_COMMANDER_VERSION='v0.8.0'
 
+RUN apk --no-cache add \
+    bash \
+    curl \
+    git
+
 WORKDIR /
 
-RUN git clone -b v0.8.0 https://github.com/joeferner/redis-commander.git --single-branch redis-commander
+RUN git clone -b ${REDIS_COMMANDER_VERSION} https://github.com/joeferner/redis-commander.git --single-branch redis-commander
 
 WORKDIR /redis-commander
 
