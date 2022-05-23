@@ -12,7 +12,7 @@ WORKDIR /usr/share/kibana
 RUN curl -sL https://artifacts.elastic.co/downloads/kibana/kibana-oss-6.8.4-linux-x86_64.tar.gz | tar --strip-components=1 -zxf -
 RUN rm -rf /usr/share/kibana/node/* && \
     architecture=$(case ${TARGETPLATFORM} in "linux/amd64") echo "x64" ;; linux/arm64) echo "arm64" ;; *) echo "x64" ;; esac) && \
-    curl -sL https://nodejs.org/dist/v10.19.0/node-v10.19.0-linux-${architecture}.tar.gz | tar -C /usr/share/kibana/node/ --strip-components=1 -xzf -
+    curl -sL https://nodejs.org/dist/v10.15.2/node-v10.15.2-linux-${architecture}.tar.gz | tar -C /usr/share/kibana/node/ --strip-components=1 -xzf -
 
 # compile dumb-init from sources
 RUN mkdir -p /opt/dumb-init
@@ -52,7 +52,7 @@ ENV PATH=/usr/share/kibana/bin:$PATH
 
 # Add the launcher/wrapper script. It knows how to interpret environment
 # variables and translate them to Kibana CLI options.
-COPY --chown=1000:0 kibana/bin/kibana-docker /usr/local/bin/
+COPY --chown=1000:0 bin/kibana-docker /usr/local/bin/
 
 # Ensure gid 0 write permissions for OpenShift.
 RUN chmod g+ws /usr/share/kibana && find /usr/share/kibana -gid 0 -and -not -perm /g+w -exec chmod g+w {} \;
@@ -65,8 +65,19 @@ LABEL org.label-schema.schema-version="1.0" org.label-schema.vendor="Elastic" or
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 
-#CMD ["/usr/local/bin/kibana-docker"]
-CMD ["/usr/local/bin/kibana"]
+RUN chmod +x /usr/local/bin/kibana-docker
+CMD ["/usr/local/bin/kibana-docker"]
+#CMD ["/usr/share/kibana/bin/kibana"]
+
+
+
+
+
+
+
+
+
+
 
 #FROM volhovm/kibana:6.8.10-arm
 #FROM blacktop/kibana:6.8.4
