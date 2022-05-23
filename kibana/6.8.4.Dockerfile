@@ -47,13 +47,6 @@ RUN ln -s /usr/share/kibana /opt/kibana
 ENV ELASTIC_CONTAINER true
 ENV PATH=/usr/share/kibana/bin:$PATH
 
-## Set some Kibana configuration defaults.
-#COPY --chown=1000:0 config/kibana.yml /usr/share/kibana/config/kibana.yml
-
-# Add the launcher/wrapper script. It knows how to interpret environment
-# variables and translate them to Kibana CLI options.
-#COPY --chown=1000:0 bin/kibana-docker /usr/local/bin/
-
 # Ensure gid 0 write permissions for OpenShift.
 RUN chmod g+ws /usr/share/kibana && find /usr/share/kibana -gid 0 -and -not -perm /g+w -exec chmod g+w {} \;
 
@@ -65,85 +58,4 @@ LABEL org.label-schema.schema-version="1.0" org.label-schema.vendor="Elastic" or
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 
-RUN #chmod +x /usr/local/bin/kibana-docker
-#CMD ["/usr/local/bin/kibana-docker"]
 CMD ["/usr/share/kibana/bin/kibana"]
-
-
-
-
-
-
-
-
-
-
-
-#FROM volhovm/kibana:6.8.10-arm
-#FROM blacktop/kibana:6.8.4
-#FROM debian:stable-slim
-#
-#ARG TARGETPLATFORM
-#ARG KIBANA_VERSION=v6.8.4
-#ARG NODE_VERSION=v10.15.2
-#
-#ENV USERNAME "kibana"
-#ENV HOME "/home/${USERNAME}"
-#ENV NVM_DIR "${HOME}/.nvm"
-#
-#RUN apt update -y && \
-#    apt install -y \
-#    bash \
-#    git \
-#    curl \
-#    apt-utils \
-#    build-essential \
-#    bash-completion \
-#    make \
-#    python2
-#
-#RUN addgroup ${USERNAME} \
-#  && useradd --home ${HOME} --shell /bin/sh --groups ${USERNAME} --gid ${USERNAME} ${USERNAME} \
-#  && mkdir -p ${HOME} \
-#  && mkdir -p ${NVM_DIR} \
-#  && chown ${USERNAME}:${USERNAME} ${HOME} \
-#  && chown ${USERNAME}:${USERNAME} /usr/share \
-#  && chown ${USERNAME}:${USERNAME} -R ${NVM_DIR}
-#
-#USER ${USERNAME}
-#
-## nvm
-#RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-#RUN chmod -R 777 ${NVM_DIR}
-#RUN echo 'export NVM_DIR="${NVM_DIR}"' >> "${HOME}/.bashrc"
-#RUN echo '[ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh"  # This loads nvm' >> "${HOME}/.bashrc"
-#RUN echo '[ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion" # This loads nvm bash_completion' >> "${HOME}/.bashrc"
-#
-#WORKDIR ${HOME}
-#
-#RUN git clone -b v6.8.4 https://github.com/elastic/kibana.git --single-branch kibana
-#
-#WORKDIR ${HOME}/kibana
-#RUN git config --global url."https://github.com/".insteadOf git://github.com/
-#RUN bash -c 'source ${HOME}/.nvm/nvm.sh && nvm install "$(cat .node-version)" \
-#    && npm install -g yarn \
-#    && yarn remove node-sass \
-#    && yarn add sass@~1.32.13 \
-#    && yarn install \
-#    && yarn kbn bootstrap \
-#    && node scripts/build --skip-archives --skip-os-packages --no-oss'
-#
-#ENV NODE_PATH ${NVM_DIR}/${NODE_VERSION}/lib/node_modules
-#ENV PATH /home/kibana/.nvm/versions/node/${NODE_VERSION}/bin:$PATH
-#ENV NODE_OPTIONS --max-old-space-size=5000
-#
-##RUN bash -c 'node scripts/build --skip-archives --skip-os-packages --no-oss'
-#
-#RUN mv build/kibana /usr/share/kibana
-#RUN rm -rf ${HOME}/kibana
-#
-#EXPOSE 5601
-#
-#WORKDIR /usr/share/kibana
-#
-#CMD ["bin/kibana"]
