@@ -6,6 +6,7 @@ ARG TARGETPLATFORM
 RUN yum install -y glibc-static gcc make
 
 RUN mkdir /usr/share/kibana
+
 WORKDIR /usr/share/kibana
 
 RUN curl -sL https://artifacts.elastic.co/downloads/kibana/kibana-oss-6.8.4-linux-x86_64.tar.gz | tar --strip-components=1 -zxf -
@@ -64,7 +65,8 @@ LABEL org.label-schema.schema-version="1.0" org.label-schema.vendor="Elastic" or
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 
-CMD ["/usr/local/bin/kibana-docker"]
+#CMD ["/usr/local/bin/kibana-docker"]
+CMD ["/usr/local/bin/kibana"]
 
 #FROM volhovm/kibana:6.8.10-arm
 #FROM blacktop/kibana:6.8.4
