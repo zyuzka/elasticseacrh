@@ -1,5 +1,7 @@
 FROM centos:7 AS prep_files
 
+ARG TARGETPLATFORM
+
 # Install toolchain to build dumb-init
 RUN yum install -y glibc-static gcc make
 
