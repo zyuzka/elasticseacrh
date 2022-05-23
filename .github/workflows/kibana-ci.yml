@@ -9,11 +9,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - image: '5.6.16.Dockerfile'
+          - image: 'kibana/5.6.16.Dockerfile'
             tags: [ "zyuzka/kibana:5.6" ]
             platforms: [ 'linux/amd64', 'linux/arm64' ]
 
-          - image: '6.8.4.Dockerfile'
+          - image: 'kibana/6.8.4.Dockerfile'
             tags: [ "zyuzka/kibana:6.8" ]
             platforms: [ 'linux/amd64', 'linux/arm64' ]
 
