@@ -9,11 +9,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - image: 'kibana/5.6.16.Dockerfile'
+          - image: '5.6.16.Dockerfile'
             tags: [ "zyuzka/kibana:5.6" ]
             platforms: [ 'linux/amd64', 'linux/arm64' ]
 
-          - image: 'kibana/6.8.4.Dockerfile'
+          - image: '6.8.4.Dockerfile'
             tags: [ "zyuzka/kibana:6.8" ]
             platforms: [ 'linux/amd64', 'linux/arm64' ]
 
@@ -35,7 +35,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: ./kibana
+          context: ./kibana/
           file: ${{ matrix.image }}
           tags: ${{ join(matrix.tags) }}
           platforms: ${{ join(matrix.platforms) }}
