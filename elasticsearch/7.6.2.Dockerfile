@@ -19,7 +19,7 @@ USER elasticsearch
 
 RUN curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.6.2-linux-x86_64.tar.gz -o elasticsearch-7.6.2-linux-x86_64.tar.gz \
     && tar xf ./elasticsearch-7.6.2-linux-x86_64.tar.gz \
-    && mv elasticsearch-7.6.2-linux-x86_64 elasticsearch
+    && mv elasticsearch-7.6.2 elasticsearch
 
 WORKDIR /usr/share/elasticsearch
 
