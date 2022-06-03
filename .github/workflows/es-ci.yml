@@ -19,7 +19,7 @@ jobs:
             version: '6.8.4'
             platforms: [ 'linux/amd64', 'linux/arm64' ]
 
-          - image: 'elasticsearch/Dockerfile'
+          - image: 'elasticsearch/7.6.2.Dockerfile'
             tags: [ "zyuzka/elasticsearch:7.6" ]
             version: '7.6.2'
             platforms: [ 'linux/amd64', 'linux/arm64' ]
