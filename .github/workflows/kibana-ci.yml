@@ -17,6 +17,14 @@ jobs:
             tags: [ "zyuzka/kibana:6.8" ]
             platforms: [ 'linux/amd64', 'linux/arm64' ]
 
+          - image: 'kibana/7.6.2.Dockerfile'
+            tags: [ "zyuzka/kibana:7.6" ]
+            platforms: [ 'linux/amd64', 'linux/arm64' ]
+
+          - image: 'kibana/7.10.1.Dockerfile'
+            tags: [ "zyuzka/kibana:7.10" ]
+            platforms: [ 'linux/amd64', 'linux/arm64' ]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
